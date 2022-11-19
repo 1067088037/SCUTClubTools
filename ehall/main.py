@@ -31,7 +31,9 @@ def init():
     try:
         task_src = dict(json.loads(network.get_task_list()))
         time = datetime.datetime.now().strftime("%Y-%m-%d %H%M%S")
-        return open(f'./{time}.csv', mode='w+'), task_src
+        file = open(f'./{time}.csv', mode='w+')
+        file.write("反馈ID,申请人,学号,学院,专业,年级,手机号码,政治面貌,社团名称\n")
+        return file, task_src
     except JSONDecodeError:
         print("Cookies不合法或已经过期")
         return None, None
@@ -70,7 +72,7 @@ def main(csv_file: open, task_src: dict):
         if counter % 10 == 0:
             print(f"[{counter}]")
     csv_file.close()
-    print(f"已读取{counter}份数据，内容被写入在{csv_file.name}")
+    print(f"\n已读取{counter}份数据，内容被写入在{csv_file.name}")
 
 
 if __name__ == '__main__':
